@@ -17,7 +17,7 @@ public class GameTest {
 	}
 
 	@Test
-	public void testInit_ShouldAllocateExtremeRowsAndColumnsForWalls() {
+	public void testInit_should_allocate_extereme_rows_and_columns_for_walls() {
 		
 		BoardLocation[][] board = game.getBoard();
 		
@@ -26,7 +26,7 @@ public class GameTest {
 	}
 	
 	@Test
-	public void testInit_ShouldMakeFirstRow_a_Wall() throws Exception {
+	public void testInit_should_make_first_row_a_wall() throws Exception {
 		
 		BoardLocation[][] board = game.getBoard();
 		
@@ -36,7 +36,7 @@ public class GameTest {
 	}
 	
 	@Test
-	public void testInit_ShouldMakeLastRow_a_Wall() throws Exception {
+	public void testInit_should_make_last_row_a_wall() throws Exception {
 		
 		BoardLocation[][] board = game.getBoard();
 		
@@ -46,7 +46,7 @@ public class GameTest {
 	}
 	
 	@Test
-	public void testInit_ShouldMakeFirstColumn_a_Wall() throws Exception {
+	public void testInit_should_make_first_column_a_wall() throws Exception {
 		
 		BoardLocation[][] board = game.getBoard();
 		
@@ -57,7 +57,7 @@ public class GameTest {
 	}
 	
 	@Test
-	public void testInit_ShouldMakeLastColumn_a_Wall() throws Exception {
+	public void testInit_should_make_last_column_a_wall() throws Exception {
 		
 		BoardLocation[][] board = game.getBoard();
 		
@@ -68,7 +68,7 @@ public class GameTest {
 	}
 	
 	@Test
-	public void testInit_ShouldCreatePacmanInMiddle() throws Exception {
+	public void testInit_should_create_pacman_in_middle() throws Exception {
 		
 		BoardLocation[][] board = game.getBoard();
 		
@@ -80,7 +80,7 @@ public class GameTest {
 	}
 	
 	@Test
-	public void testInit_ShouldPutDots_at_all_locations_except_Pacman() {
+	public void testInit_should_put_dots_at_all_locations_except_Pacman() {
 		
 		BoardLocation[][] board = game.getBoard();
 		
