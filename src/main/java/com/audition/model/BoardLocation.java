@@ -12,12 +12,14 @@ public class BoardLocation {
 	private int column;
 	boolean wall;
 	private List<Object> objectsAtThisLocation;
+	private BoardLocation[][] board;
 	
-	public BoardLocation(int row, int column, boolean wall) {
+	public BoardLocation(BoardLocation[][] board, int row, int column, boolean wall) {
 		
 		this.row = row;
 		this.column = column;
 		this.wall = wall;
+		this.board = board;
 	}
 	
 	public int getRow() {
@@ -33,6 +35,11 @@ public class BoardLocation {
 	public boolean isWall() {
 		
 		return this.wall;
+	}
+	
+	public void setWall(boolean wall) {
+		
+		this.wall = wall;
 	}
 	
 	public void addObject(Object object) {
@@ -81,6 +88,11 @@ public class BoardLocation {
 		if(this.objectsAtThisLocation == null) {
 			this.objectsAtThisLocation.clear();
 		}
+	}
+	
+	public BoardLocation[][] getBoard() {
+		
+		return board;
 	}
 	
 	public void print() {

@@ -6,10 +6,10 @@ public class Pacman {
 	private BoardLocation currentBoardLocation;
 	private boolean moving;
 	
-	public Pacman() {
+	public Pacman(BoardLocation boardLocation) {
 		
 		currentDirection = Direction.UP;
-		currentBoardLocation = new BoardLocation(1, 1, false);
+		currentBoardLocation = boardLocation;
 		moving = false;
 	}
 	
@@ -33,10 +33,18 @@ public class Pacman {
 		this.moving = moving;
 	}
 	
-	public void moveUP() {
+	public boolean moveUP() {
+		
+		this.currentDirection = Direction.UP;
+		
+		BoardLocation locationDirectedTo = currentBoardLocation.getBoard()[currentBoardLocation.getRow() - 1][currentBoardLocation.getColumn()];
+		if(locationDirectedTo.isWall()) {
+			this.moving = false;
+			return false;
+		}
 		
 		this.moving = true;
-		this.currentDirection = Direction.UP; 
+		return true;
 	}
 
 	public void moveLEFT() {
@@ -45,10 +53,19 @@ public class Pacman {
 		this.currentDirection = Direction.LEFT; 
 	}
 	
-	public void moveDOWN() {
+	public boolean moveDOWN() {
+		
+		this.currentDirection = Direction.DOWN; 
+		
+		BoardLocation locationDirectedTo = currentBoardLocation.getBoard()[currentBoardLocation.getRow() + 1][currentBoardLocation.getColumn()];
+		
+		if(locationDirectedTo.isWall()) {
+			this.moving = false;
+			return false;
+		}
 		
 		this.moving = true;
-		this.currentDirection = Direction.DOWN; 
+		return true;
 	}
 	
 	public void moveRIGHT() {

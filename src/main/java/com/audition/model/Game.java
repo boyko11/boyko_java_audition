@@ -3,6 +3,7 @@ package com.audition.model;
 public class Game {
 
 	private BoardLocation[][] board;
+	private Pacman pacman;
 	
 	public void init(int boardRows, int boardColumns) {
 		
@@ -17,9 +18,9 @@ public class Game {
 				boolean isWall = false;
 				if(row == 0 || column == 0 || row == boardRows + 1 || column == boardColumns + 1) {
 					isWall = true;
-					board[row][column] = new BoardLocation(row, column, isWall);
+					board[row][column] = new BoardLocation(board,row, column, isWall);
 				}
-				board[row][column] = new BoardLocation(row, column, isWall);
+				board[row][column] = new BoardLocation(board, row, column, isWall);
 			}
 		}
 		
@@ -27,13 +28,18 @@ public class Game {
 		int pacmanInitialRow = Math.floorDiv(board.length, 2);
 		int pacmanInitialColumn = Math.floorDiv(board[0].length, 2);
 		
-		Pacman pacman = new Pacman();
+		pacman = new Pacman(board[pacmanInitialRow][pacmanInitialColumn]);
 		board[pacmanInitialRow][pacmanInitialColumn].addObject(pacman);
 	}
 	
 	public BoardLocation[][] getBoard() {
 		
 		return this.board;
+	}
+	
+	public Pacman getPacman() {
+		
+		return this.pacman;
 	}
 	
 	public void printBoard() {

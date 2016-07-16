@@ -10,11 +10,14 @@ import com.audition.Constants;
 public class BoardLocationTest {
 
 	private BoardLocation boardLocation;
+	private Game game;
 	
 	@Before
 	public void setUp() throws Exception {
 		
-		boardLocation = new BoardLocation(1, 1, false);
+		game = new Game();
+		game.init(3, 3);
+		boardLocation = new BoardLocation(game.getBoard(), 1, 1, false);
 	}
 
 	@Test
@@ -26,7 +29,7 @@ public class BoardLocationTest {
 	@Test
 	public void test_hasPacman_ShouldReturnTrue_WhenPacmanPresent() {
 		
-		boardLocation.addObject(new Pacman());
+		boardLocation.addObject(new Pacman(boardLocation));
 		assertTrue(boardLocation.hasPacman());
 	}
 	
@@ -52,7 +55,7 @@ public class BoardLocationTest {
 	@Test
 	public void test_isWall_ShouldReturnTrue_WhenWall() {
 		
-		BoardLocation boardLocationUnderTest = new BoardLocation(1, 1, true);
+		BoardLocation boardLocationUnderTest = new BoardLocation(game.getBoard(), 1, 1, true);
 		assertTrue(boardLocationUnderTest.isWall());
 	}
 	

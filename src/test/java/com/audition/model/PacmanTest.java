@@ -12,7 +12,9 @@ public class PacmanTest {
 	@Before
 	public void setUp() throws Exception {
 		
-		pacman = new Pacman();
+		Game game = new Game();
+		game.init(3, 3);
+		pacman = game.getPacman();
 	}
 
 	@Test
@@ -20,8 +22,8 @@ public class PacmanTest {
 		
 		assertEquals(Direction.UP, pacman.getCurrentDirection());
 		BoardLocation currentLocation = pacman.getCurrentBoardLocation();
-		assertEquals(1, currentLocation.getRow());
-		assertEquals(1, currentLocation.getColumn());
+		assertEquals(2, currentLocation.getRow());
+		assertEquals(2, currentLocation.getColumn());
 	}
 	
 	@Test
@@ -33,7 +35,7 @@ public class PacmanTest {
 	@Test
 	public void test_moveUP_should_direct_UP_AND_move() throws Exception {
 		
-		Pacman pacmanUnderTest = setUpMoveTest(Direction.DOWN);
+		Pacman pacmanUnderTest = setUpMoveTest(Direction.DOWN, false);
 		
 		pacmanUnderTest.moveUP();
 		
@@ -44,7 +46,7 @@ public class PacmanTest {
 	@Test
 	public void test_moveLEFT_should_direct_LEFT_AND_move() throws Exception {
 		
-		Pacman pacmanUnderTest = setUpMoveTest(Direction.UP);
+		Pacman pacmanUnderTest = setUpMoveTest(Direction.UP, false);
 		
 		pacmanUnderTest.moveLEFT();
 		
@@ -55,7 +57,7 @@ public class PacmanTest {
 	@Test
 	public void test_moveDOWN_should_direct_DOWN_AND_move() throws Exception {
 		
-		Pacman pacmanUnderTest = setUpMoveTest(Direction.UP);
+		Pacman pacmanUnderTest = setUpMoveTest(Direction.UP, false);
 		
 		pacmanUnderTest.moveDOWN();
 		
@@ -66,7 +68,7 @@ public class PacmanTest {
 	@Test
 	public void test_moveRIGHT_should_direct_RIGHT_AND_move() throws Exception {
 		
-		Pacman pacmanUnderTest = setUpMoveTest(Direction.UP);
+		Pacman pacmanUnderTest = setUpMoveTest(Direction.UP, false);
 		
 		pacmanUnderTest.moveRIGHT();
 		
@@ -74,12 +76,56 @@ public class PacmanTest {
 		assertTrue(pacmanUnderTest.isMoving());
 	}
 	
-	private Pacman setUpMoveTest(Direction setupDirection) {
+	@Test
+	public void testMove_should_not_move_when_directionUP_and_destination_is_wall() throws Exception {
 		
-		Pacman pacmanUnderTest = new Pacman();
-		pacmanUnderTest.setDirection(setupDirection);
-		pacmanUnderTest.setMoving(false);
-		return pacmanUnderTest;
+		Pacman pacmanUnderTest = setUpMoveTest(Direction.UP, true);
+		
+		assertFalse(pacmanUnderTest.moveUP());
+		assertFalse(pacmanUnderTest.isMoving());
+	}
+	
+	@Test
+	public void testMove_should_not_move_when_directionDown_and_destination_is_wall() throws Exception {
+		
+		Pacman pacmanUnderTest = setUpMoveTest(Direction.DOWN, true);
+		
+		assertFalse(pacmanUnderTest.moveDOWN());
+		assertFalse(pacmanUnderTest.isMoving());
+	}
+	
+	private Pacman setUpMoveTest(Direction setupDirection, boolean destinationIsWall) {
+		
+		BoardLocation currentBoardLocation = pacman.getCurrentBoardLocation();
+		
+		if(destinationIsWall) {
+			
+			BoardLocation[][] currentBoard = currentBoardLocation.getBoard();
+			
+			switch(setupDirection) {
+			
+				case UP:
+					currentBoard[currentBoardLocation.getRow() - 1][currentBoardLocation.getColumn()].setWall(true);
+				break;
+				case DOWN:
+					currentBoard[currentBoardLocation.getRow() + 1][currentBoardLocation.getColumn()].setWall(true);
+				break;				
+				case LEFT:
+					currentBoard[currentBoardLocation.getRow()][currentBoardLocation.getColumn() - 1].setWall(true);
+				break;
+				case RIGHT:
+					currentBoard[currentBoardLocation.getRow()][currentBoardLocation.getColumn() + 1].setWall(true);
+				break;
+				default:
+				break;
+				
+			}
+			
+		}
+		
+		pacman.setDirection(setupDirection);
+		pacman.setMoving(false);
+		return pacman;
 	}
 
 }
