@@ -3,28 +3,33 @@ package com.audition.model;
 public class Pacman {
 
 	private Direction currentDirection;
-	private Location currentLocation;
+	private BoardLocation currentBoardLocation;
 	private boolean moving;
 	
 	public Pacman() {
+		
 		currentDirection = Direction.UP;
-		currentLocation = new Location(10, 10);
+		currentBoardLocation = new BoardLocation(1, 1);
 		moving = false;
 	}
 	
 	public Direction getCurrentDirection() {
+		
 		return currentDirection;
 	}
 	
 	public void setDirection(Direction direction) {
+		
 		this.currentDirection = direction;
 	}
 	
 	public boolean isMoving() {
+		
 		return moving;
 	}
 	
 	public void setMoving(boolean moving) {
+		
 		this.moving = moving;
 	}
 	
@@ -52,8 +57,9 @@ public class Pacman {
 		this.currentDirection = Direction.RIGHT; 
 	}
 
-	public Location getCurrentLocation() {
-		return currentLocation;
+	public BoardLocation getCurrentBoardLocation() {
+		
+		return currentBoardLocation;
 	}
 	
 }
