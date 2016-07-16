@@ -9,7 +9,7 @@ public class Pacman {
 	public Pacman() {
 		
 		currentDirection = Direction.UP;
-		currentBoardLocation = new BoardLocation(1, 1);
+		currentBoardLocation = new BoardLocation(1, 1, false);
 		moving = false;
 	}
 	

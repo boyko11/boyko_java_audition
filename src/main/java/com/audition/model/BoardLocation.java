@@ -10,22 +10,29 @@ public class BoardLocation {
 	
 	private int row;
 	private int column;
+	boolean wall;
 	private List<Object> objectsAtThisLocation;
 	
-	public BoardLocation(int row, int column) {
+	public BoardLocation(int row, int column, boolean wall) {
 		
 		this.row = row;
 		this.column = column;
+		this.wall = wall;
 	}
 	
 	public int getRow() {
 		
-		return row;
+		return this.row;
 	}
 	
 	public int getColumn() {
 		
-		return column;
+		return this.column;
+	}
+	
+	public boolean isWall() {
+		
+		return this.wall;
 	}
 	
 	public void addObject(Object object) {
