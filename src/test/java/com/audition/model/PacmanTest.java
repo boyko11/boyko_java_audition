@@ -94,6 +94,24 @@ public class PacmanTest {
 		assertFalse(pacmanUnderTest.isMoving());
 	}
 	
+	@Test
+	public void testMove_should_not_move_when_directionLEFT_and_destination_is_wall() throws Exception {
+		
+		Pacman pacmanUnderTest = setUpMoveTest(Direction.LEFT, true);
+		
+		assertFalse(pacmanUnderTest.moveLEFT());
+		assertFalse(pacmanUnderTest.isMoving());
+	}
+	
+	@Test
+	public void testMove_should_not_move_when_directionRight_and_destination_is_wall() throws Exception {
+		
+		Pacman pacmanUnderTest = setUpMoveTest(Direction.RIGHT, true);
+		
+		assertFalse(pacmanUnderTest.moveRIGHT());
+		assertFalse(pacmanUnderTest.isMoving());
+	}
+	
 	private Pacman setUpMoveTest(Direction setupDirection, boolean destinationIsWall) {
 		
 		BoardLocation currentBoardLocation = pacman.getCurrentBoardLocation();

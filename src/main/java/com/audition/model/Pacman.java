@@ -47,10 +47,19 @@ public class Pacman {
 		return true;
 	}
 
-	public void moveLEFT() {
+	public boolean moveLEFT() {
+		
+		this.currentDirection = Direction.LEFT;
+		
+		BoardLocation locationDirectedTo = currentBoardLocation.getBoard()[currentBoardLocation.getRow()][currentBoardLocation.getColumn() - 1];
+		
+		if(locationDirectedTo.isWall()) {
+			this.moving = false;
+			return false;
+		}
 		
 		this.moving = true;
-		this.currentDirection = Direction.LEFT; 
+		return true;
 	}
 	
 	public boolean moveDOWN() {
@@ -68,10 +77,20 @@ public class Pacman {
 		return true;
 	}
 	
-	public void moveRIGHT() {
+	public boolean moveRIGHT() {
+		
+		this.currentDirection = Direction.RIGHT;
+		
+		BoardLocation locationDirectedTo = currentBoardLocation.getBoard()[currentBoardLocation.getRow()][currentBoardLocation.getColumn() + 1];
+		
+		if(locationDirectedTo.isWall()) {
+			this.moving = false;
+			return false;
+		}
 		
 		this.moving = true;
-		this.currentDirection = Direction.RIGHT; 
+		
+		return true;
 	}
 
 	public BoardLocation getCurrentBoardLocation() {
