@@ -37,6 +37,11 @@ public class Game {
 		board[pacmanInitialRow][pacmanInitialColumn].addObject(pacman);
 	}
 	
+	public void tick() {
+		
+		pacman.move();
+	}
+	
 	public BoardLocation[][] getBoard() {
 		
 		return this.board;

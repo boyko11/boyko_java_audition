@@ -79,6 +79,7 @@ public class GameTest {
 		
 	}
 	
+	@Test
 	public void testInit_ShouldPutDots_at_all_locations_except_Pacman() {
 		
 		BoardLocation[][] board = game.getBoard();
@@ -98,6 +99,84 @@ public class GameTest {
 			}
 			
 		}
+	}
+	
+	@Test
+	public void testTick_should_move_pacman_UP_when_direction_UP_and_destination_valid() throws Exception {
+		
+		Pacman pacman = game.getPacman();
+		pacman.setDirection(Direction.UP);
+		BoardLocation pacmanStartLocation = pacman.getCurrentBoardLocation();
+		int startRow = pacmanStartLocation.getRow();
+		int startColumn = pacmanStartLocation.getColumn();
+		
+		game.tick();
+		
+		BoardLocation pacmanDestinationLocation = pacman.getCurrentBoardLocation();
+		
+		//column should not change in vertical move
+		assertEquals(startColumn, pacmanDestinationLocation.getColumn());
+		//row should be one less since it is a move UP
+		assertEquals(startRow - 1, pacmanDestinationLocation.getRow());
+		
+	}
+	
+	@Test
+	public void testTick_should_move_pacman_DOWN_when_direction_DOWN_and_destination_valid() throws Exception {
+		
+		Pacman pacman = game.getPacman();
+		pacman.setDirection(Direction.DOWN);
+		BoardLocation pacmanStartLocation = pacman.getCurrentBoardLocation();
+		int startRow = pacmanStartLocation.getRow();
+		int startColumn = pacmanStartLocation.getColumn();
+		
+		game.tick();
+		
+		BoardLocation pacmanDestinationLocation = pacman.getCurrentBoardLocation();
+		
+		//column should not change in vertical move
+		assertEquals(startColumn, pacmanDestinationLocation.getColumn());
+		//row should be one more since it is a move down
+		assertEquals(startRow + 1, pacmanDestinationLocation.getRow());
+		
+	}
+	
+	@Test
+	public void testTick_should_move_pacman_RIGHT_when_direction_RIGHT_and_destination_valid() throws Exception {
+		
+		Pacman pacman = game.getPacman();
+		pacman.setDirection(Direction.RIGHT);
+		BoardLocation pacmanStartLocation = pacman.getCurrentBoardLocation();
+		int startRow = pacmanStartLocation.getRow();
+		int startColumn = pacmanStartLocation.getColumn();
+		
+		game.tick();
+		
+		BoardLocation pacmanDestinationLocation = pacman.getCurrentBoardLocation();
+		
+		//column should be one more since it is a move to the right
+		assertEquals(startColumn + 1, pacmanDestinationLocation.getColumn());
+		//row should be the same since it is a horizontal move
+		assertEquals(startRow, pacmanDestinationLocation.getRow());
+	}
+	
+	@Test
+	public void testTick_should_move_pacman_LEFT_when_direction_LEFT_and_destination_valid() throws Exception {
+		
+		Pacman pacman = game.getPacman();
+		pacman.setDirection(Direction.LEFT);
+		BoardLocation pacmanStartLocation = pacman.getCurrentBoardLocation();
+		int startRow = pacmanStartLocation.getRow();
+		int startColumn = pacmanStartLocation.getColumn();
+		
+		game.tick();
+		
+		BoardLocation pacmanDestinationLocation = pacman.getCurrentBoardLocation();
+		
+		//column should be one less since it is a move to the right
+		assertEquals(startColumn - 1, pacmanDestinationLocation.getColumn());
+		//row should be the same since it is a horizontal move
+		assertEquals(startRow, pacmanDestinationLocation.getRow());
 	}
 
 }
