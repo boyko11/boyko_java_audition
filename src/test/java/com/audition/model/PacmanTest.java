@@ -16,9 +16,12 @@ public class PacmanTest {
 	}
 
 	@Test
-	public void test_WHEN_created_current_direction_SHOULD_be_up() {
+	public void test_WHEN_created_direction_SHOULD_be_up_AND_location_should_be_in_middle() {
 		
 		assertEquals(Direction.UP, pacman.getCurrentDirection());
+		Location currentLocation = pacman.getCurrentLocation();
+		assertEquals(10, currentLocation.getRow());
+		assertEquals(10, currentLocation.getColumn());
 	}
 	
 	@Test
