@@ -22,6 +22,13 @@ public class Game {
 				board[row][column] = new BoardLocation(row, column, isWall);
 			}
 		}
+		
+		//place pacman in the middle of the board
+		int pacmanInitialRow = Math.floorDiv(board.length, 2);
+		int pacmanInitialColumn = Math.floorDiv(board[0].length, 2);
+		
+		Pacman pacman = new Pacman();
+		board[pacmanInitialRow][pacmanInitialColumn].addObject(pacman);
 	}
 	
 	public BoardLocation[][] getBoard() {

@@ -66,5 +66,17 @@ public class GameTest {
 			assertTrue(board[i][board.length - 1].isWall());
 		}
 	}
+	
+	@Test
+	public void testInit_ShouldCreatePacmanInMiddle() throws Exception {
+		
+		BoardLocation[][] board = game.getBoard();
+		
+		int pacmanInitialRow = Math.floorDiv(board.length, 2);
+		int pacmanInitialColumn = Math.floorDiv(board[0].length, 2);
+		
+		assertTrue(board[pacmanInitialRow][pacmanInitialColumn].hasPacman());
+		
+	}
 
 }
