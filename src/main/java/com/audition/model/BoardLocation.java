@@ -66,11 +66,21 @@ public class BoardLocation {
 				));
 	}
 	
+	public boolean hasMonster() {
+		
+		if(this.objectsAtThisLocation == null || this.objectsAtThisLocation.isEmpty()) {
+			return false;
+		}
+		
+		return this.objectsAtThisLocation.stream()
+				.anyMatch(objectAtThisLocation -> objectAtThisLocation instanceof Monster);
+	}
+	
 	public void clearObjects() {
 		
 		if(this.objectsAtThisLocation == null) {
 			this.objectsAtThisLocation.clear();
 		}
 	}
-	
+
 }
