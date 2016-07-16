@@ -82,5 +82,32 @@ public class BoardLocation {
 			this.objectsAtThisLocation.clear();
 		}
 	}
+	
+	public void print() {
+		
+		System.out.print(Constants.SPACE);
+		
+		if(this.isWall()) {
+			System.out.print("###");
+			System.out.print(Constants.SPACE);
+			return;
+		}
+		String contentOfBoardLocation = Constants.SPACE;
+		if(this.hasDot()) {
+			contentOfBoardLocation += String.valueOf(Constants.DOT);
+		}
+		
+		if(this.hasPacman()) {
+			contentOfBoardLocation += "P";
+		}
+		
+		if(this.hasMonster()) {
+			contentOfBoardLocation += "M";
+		}
+		
+		System.out.print(String.format("%1$3s", contentOfBoardLocation));
+		
+		System.out.print(Constants.SPACE);
+	}
 
 }
