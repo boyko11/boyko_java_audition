@@ -5,6 +5,8 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.audition.Constants;
+
 public class PacmanTest {
 
 	private Pacman pacman;
@@ -35,7 +37,7 @@ public class PacmanTest {
 	@Test
 	public void test_move_should_move_UP_when_direction_UP_and_valid_destination() throws Exception {
 		
-		Pacman pacmanUnderTest = setUpMoveTest(Direction.UP, false);
+		Pacman pacmanUnderTest = setUpMoveTest(Direction.UP, false, null);
 		
 		pacmanUnderTest.move();
 		
@@ -46,7 +48,7 @@ public class PacmanTest {
 	@Test
 	public void test_move_should_move_LEFT_when_direction_LEFT_and_valid_destination() throws Exception {
 		
-		Pacman pacmanUnderTest = setUpMoveTest(Direction.LEFT, false);
+		Pacman pacmanUnderTest = setUpMoveTest(Direction.LEFT, false, null);
 		
 		pacmanUnderTest.move();
 		
@@ -57,7 +59,7 @@ public class PacmanTest {
 	@Test
 	public void test_move_should_move_down_when_direction_DOWN_and_valid_destination() throws Exception {
 		
-		Pacman pacmanUnderTest = setUpMoveTest(Direction.DOWN, false);
+		Pacman pacmanUnderTest = setUpMoveTest(Direction.DOWN, false, null);
 		
 		pacmanUnderTest.move();
 		
@@ -68,7 +70,7 @@ public class PacmanTest {
 	@Test
 	public void test_move_should_move_RIGHT_when_direction_RIGHT_and_valid_destination() throws Exception {
 		
-		Pacman pacmanUnderTest = setUpMoveTest(Direction.RIGHT, false);
+		Pacman pacmanUnderTest = setUpMoveTest(Direction.RIGHT, false, null);
 		
 		pacmanUnderTest.move();
 		
@@ -79,7 +81,7 @@ public class PacmanTest {
 	@Test
 	public void test_move_should_not_move_when_direction_UP_and_destination_is_wall() throws Exception {
 		
-		Pacman pacmanUnderTest = setUpMoveTest(Direction.UP, true);
+		Pacman pacmanUnderTest = setUpMoveTest(Direction.UP, true, null);
 		
 		assertFalse(pacmanUnderTest.move());
 		assertFalse(pacmanUnderTest.isMoving());
@@ -88,7 +90,7 @@ public class PacmanTest {
 	@Test
 	public void testMove_should_not_move_when_direction_DOWN_and_destination_is_wall() throws Exception {
 		
-		Pacman pacmanUnderTest = setUpMoveTest(Direction.DOWN, true);
+		Pacman pacmanUnderTest = setUpMoveTest(Direction.DOWN, true, null);
 		
 		assertFalse(pacmanUnderTest.move());
 		assertFalse(pacmanUnderTest.isMoving());
@@ -97,7 +99,7 @@ public class PacmanTest {
 	@Test
 	public void test_move_should_not_move_when_direction_LEFT_and_destination_is_wall() throws Exception {
 		
-		Pacman pacmanUnderTest = setUpMoveTest(Direction.LEFT, true);
+		Pacman pacmanUnderTest = setUpMoveTest(Direction.LEFT, true, null);
 		
 		assertFalse(pacmanUnderTest.move());
 		assertFalse(pacmanUnderTest.isMoving());
@@ -106,39 +108,73 @@ public class PacmanTest {
 	@Test
 	public void test_move_should_not_move_when_direction_RIGHT_and_destination_is_wall() throws Exception {
 		
-		Pacman pacmanUnderTest = setUpMoveTest(Direction.RIGHT, true);
+		Pacman pacmanUnderTest = setUpMoveTest(Direction.RIGHT, true, null);
 		
 		assertFalse(pacmanUnderTest.move());
 		assertFalse(pacmanUnderTest.isMoving());
 	}
 	
-	private Pacman setUpMoveTest(Direction setupDirection, boolean destinationIsWall) {
+	@Test
+	public void test_move_should_eat_dot_if_present() throws Exception {
+		
+		Pacman pacmanUnderTest = setUpMoveTest(Direction.RIGHT, false, Constants.DOT);
+		BoardLocation currentLocation = pacmanUnderTest.getCurrentBoardLocation();
+		
+		int currentRow = currentLocation.getRow();
+		int currentColumn = currentLocation.getColumn();
+		
+		//destination has a DOT
+		BoardLocation destination = currentLocation.getBoard()[currentRow][currentColumn + 1];
+		assertTrue(destination.hasDot());
+		
+		pacmanUnderTest.move();
+		
+		//destination has NO Dot after Pacman ate it
+		assertFalse(destination.hasDot());
+		
+	}
+	
+	private Pacman setUpMoveTest(Direction setupDirection, boolean destinationIsWall, Object objectAtDestination) {
 		
 		BoardLocation currentBoardLocation = pacman.getCurrentBoardLocation();
 		
+		BoardLocation[][] currentBoard = currentBoardLocation.getBoard();
+		
+		int rowDirectedTo = currentBoardLocation.getRow();
+		int columnDirectedTo = currentBoardLocation.getColumn();
+		
+		switch(setupDirection) {
+		
+			case UP:
+				rowDirectedTo = currentBoardLocation.getRow() - 1;
+				columnDirectedTo = currentBoardLocation.getColumn();
+			break;
+			
+			case DOWN:
+				rowDirectedTo = currentBoardLocation.getRow() + 1;
+				columnDirectedTo = currentBoardLocation.getColumn();
+			break;				
+			
+			case LEFT:
+				rowDirectedTo = currentBoardLocation.getRow();
+				columnDirectedTo = currentBoardLocation.getColumn() -1;
+			break;
+			
+			case RIGHT:
+				rowDirectedTo = currentBoardLocation.getRow();
+				columnDirectedTo = currentBoardLocation.getColumn() + 1;
+			break;
+		}
+		
+		
 		if(destinationIsWall) {
+
+			currentBoard[rowDirectedTo][columnDirectedTo].setWall(true);
+		}
+		
+		if(objectAtDestination != null) {
 			
-			BoardLocation[][] currentBoard = currentBoardLocation.getBoard();
-			
-			switch(setupDirection) {
-			
-				case UP:
-					currentBoard[currentBoardLocation.getRow() - 1][currentBoardLocation.getColumn()].setWall(true);
-				break;
-				case DOWN:
-					currentBoard[currentBoardLocation.getRow() + 1][currentBoardLocation.getColumn()].setWall(true);
-				break;				
-				case LEFT:
-					currentBoard[currentBoardLocation.getRow()][currentBoardLocation.getColumn() - 1].setWall(true);
-				break;
-				case RIGHT:
-					currentBoard[currentBoardLocation.getRow()][currentBoardLocation.getColumn() + 1].setWall(true);
-				break;
-				default:
-				break;
-				
-			}
-			
+			currentBoard[rowDirectedTo][columnDirectedTo].addObject(objectAtDestination);
 		}
 		
 		pacman.setDirection(setupDirection);

@@ -90,6 +90,19 @@ public class BoardLocation {
 		}
 	}
 	
+	public void removeDot() {
+
+		if(this.objectsAtThisLocation == null) {
+			return;
+		}
+		
+		this.objectsAtThisLocation.removeIf(objectAtThisLocation -> (
+					objectAtThisLocation instanceof Character
+					&& (Character) objectAtThisLocation == Constants.DOT
+				));
+	}
+
+	
 	public BoardLocation[][] getBoard() {
 		
 		return board;

@@ -41,6 +41,8 @@ public class Pacman {
 			this.moving = false;
 			return false;
 		}
+		//eat the dot
+		locationDirectedTo.removeDot();
 		
 		this.moving = true;
 		
