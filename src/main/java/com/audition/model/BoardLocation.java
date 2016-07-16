@@ -96,10 +96,18 @@ public class BoardLocation {
 			return;
 		}
 		
-		this.objectsAtThisLocation.removeIf(objectAtThisLocation -> (
-					objectAtThisLocation instanceof Character
-					&& (Character) objectAtThisLocation == Constants.DOT
-				));
+		this.objectsAtThisLocation
+				.removeIf(objectAtThisLocation -> (objectAtThisLocation instanceof Character && (Character) objectAtThisLocation == Constants.DOT));
+	}
+	
+	public void removePacman() {
+		
+		if(this.objectsAtThisLocation == null) {
+			return;
+		}
+		
+		this.objectsAtThisLocation
+				.removeIf(objectAtThisLocation -> (objectAtThisLocation instanceof Pacman));
 	}
 
 	

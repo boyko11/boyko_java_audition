@@ -41,8 +41,16 @@ public class Pacman {
 			this.moving = false;
 			return false;
 		}
+		this.currentBoardLocation.removePacman();
+		locationDirectedTo.addObject(this);
+		this.currentBoardLocation = locationDirectedTo;
+		
 		//eat the dot
-		locationDirectedTo.removeDot();
+		this.currentBoardLocation.removeDot();
+		if(this.currentBoardLocation.hasMonster()) {
+			//Pacman gets eaten by Monster
+			this.currentBoardLocation.removePacman();
+		}
 		
 		this.moving = true;
 		

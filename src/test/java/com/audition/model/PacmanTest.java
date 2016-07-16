@@ -39,7 +39,13 @@ public class PacmanTest {
 		
 		Pacman pacmanUnderTest = setUpMoveTest(Direction.UP, false, null);
 		
+		BoardLocation startLocation = pacmanUnderTest.getCurrentBoardLocation();
+		assertTrue(startLocation.hasPacman());
+		
 		pacmanUnderTest.move();
+		
+		assertFalse(startLocation.hasPacman());
+		assertTrue(pacmanUnderTest.getCurrentBoardLocation().hasPacman());
 		
 		assertEquals(Direction.UP, pacmanUnderTest.getCurrentDirection());
 		assertTrue(pacmanUnderTest.isMoving());
@@ -49,8 +55,13 @@ public class PacmanTest {
 	public void test_move_should_move_LEFT_when_direction_LEFT_and_valid_destination() throws Exception {
 		
 		Pacman pacmanUnderTest = setUpMoveTest(Direction.LEFT, false, null);
+		BoardLocation startLocation = pacmanUnderTest.getCurrentBoardLocation();
+		assertTrue(startLocation.hasPacman());
 		
 		pacmanUnderTest.move();
+		
+		assertFalse(startLocation.hasPacman());
+		assertTrue(pacmanUnderTest.getCurrentBoardLocation().hasPacman());
 		
 		assertEquals(Direction.LEFT, pacmanUnderTest.getCurrentDirection());
 		assertTrue(pacmanUnderTest.isMoving());
@@ -61,7 +72,13 @@ public class PacmanTest {
 		
 		Pacman pacmanUnderTest = setUpMoveTest(Direction.DOWN, false, null);
 		
+		BoardLocation startLocation = pacmanUnderTest.getCurrentBoardLocation();
+		assertTrue(startLocation.hasPacman());
+		
 		pacmanUnderTest.move();
+		
+		assertFalse(startLocation.hasPacman());
+		assertTrue(pacmanUnderTest.getCurrentBoardLocation().hasPacman());
 		
 		assertEquals(Direction.DOWN, pacmanUnderTest.getCurrentDirection());
 		assertTrue(pacmanUnderTest.isMoving());
@@ -72,7 +89,13 @@ public class PacmanTest {
 		
 		Pacman pacmanUnderTest = setUpMoveTest(Direction.RIGHT, false, null);
 		
+		BoardLocation startLocation = pacmanUnderTest.getCurrentBoardLocation();
+		assertTrue(startLocation.hasPacman());
+		
 		pacmanUnderTest.move();
+		
+		assertFalse(startLocation.hasPacman());
+		assertTrue(pacmanUnderTest.getCurrentBoardLocation().hasPacman());
 		
 		assertEquals(Direction.RIGHT, pacmanUnderTest.getCurrentDirection());
 		assertTrue(pacmanUnderTest.isMoving());
@@ -131,6 +154,26 @@ public class PacmanTest {
 		
 		//destination has NO Dot after Pacman ate it
 		assertFalse(destination.hasDot());
+		
+	}
+	
+	@Test
+	public void test_move_should_get_eaten_by_monster_if_present() throws Exception {
+		
+		Pacman pacmanUnderTest = setUpMoveTest(Direction.RIGHT, false, new Monster());
+		BoardLocation currentLocation = pacmanUnderTest.getCurrentBoardLocation();
+		
+		int currentRow = currentLocation.getRow();
+		int currentColumn = currentLocation.getColumn();
+		
+		//destination has a Monster
+		BoardLocation destination = currentLocation.getBoard()[currentRow][currentColumn + 1];
+		assertTrue(destination.hasMonster());
+		
+		pacmanUnderTest.move();
+		
+		//Monster ate Pacman
+		assertFalse(destination.hasPacman());
 		
 	}
 	
