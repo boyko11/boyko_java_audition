@@ -85,7 +85,7 @@ public class BoardLocation {
 	
 	public void clearObjects() {
 		
-		if(this.objectsAtThisLocation == null) {
+		if(this.objectsAtThisLocation != null) {
 			this.objectsAtThisLocation.clear();
 		}
 	}

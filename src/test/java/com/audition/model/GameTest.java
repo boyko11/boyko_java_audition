@@ -78,5 +78,26 @@ public class GameTest {
 		assertTrue(board[pacmanInitialRow][pacmanInitialColumn].hasPacman());
 		
 	}
+	
+	public void testInit_ShouldPutDots_at_all_locations_except_Pacman() {
+		
+		BoardLocation[][] board = game.getBoard();
+		
+		int pacmanInitialRow = Math.floorDiv(board.length, 2);
+		int pacmanInitialColumn = Math.floorDiv(board[0].length, 2);
+		
+		for(int i = 1; i < board.length - 1; i++) {
+			
+			for(int j = 1; j < board[0].length -1; j++) {
+				
+				if(i == pacmanInitialRow && j == pacmanInitialColumn) {
+					continue;
+				}
+				
+				assertTrue(board[i][0].isWall());
+			}
+			
+		}
+	}
 
 }

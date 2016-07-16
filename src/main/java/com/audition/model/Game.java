@@ -1,5 +1,7 @@
 package com.audition.model;
 
+import com.audition.Constants;
+
 public class Game {
 
 	private BoardLocation[][] board;
@@ -21,6 +23,8 @@ public class Game {
 					board[row][column] = new BoardLocation(board,row, column, isWall);
 				}
 				board[row][column] = new BoardLocation(board, row, column, isWall);
+				//set initial content as dot
+				board[row][column].addObject(Constants.DOT);
 			}
 		}
 		
@@ -29,6 +33,7 @@ public class Game {
 		int pacmanInitialColumn = Math.floorDiv(board[0].length, 2);
 		
 		pacman = new Pacman(board[pacmanInitialRow][pacmanInitialColumn]);
+		board[pacmanInitialRow][pacmanInitialColumn].clearObjects();
 		board[pacmanInitialRow][pacmanInitialColumn].addObject(pacman);
 	}
 	

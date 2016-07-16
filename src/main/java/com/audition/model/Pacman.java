@@ -33,25 +33,9 @@ public class Pacman {
 		this.moving = moving;
 	}
 	
-	public boolean moveUP() {
+	public boolean move() {
 		
-		this.currentDirection = Direction.UP;
-		
-		BoardLocation locationDirectedTo = currentBoardLocation.getBoard()[currentBoardLocation.getRow() - 1][currentBoardLocation.getColumn()];
-		if(locationDirectedTo.isWall()) {
-			this.moving = false;
-			return false;
-		}
-		
-		this.moving = true;
-		return true;
-	}
-
-	public boolean moveLEFT() {
-		
-		this.currentDirection = Direction.LEFT;
-		
-		BoardLocation locationDirectedTo = currentBoardLocation.getBoard()[currentBoardLocation.getRow()][currentBoardLocation.getColumn() - 1];
+		BoardLocation locationDirectedTo = getLocationDirectedTo();
 		
 		if(locationDirectedTo.isWall()) {
 			this.moving = false;
@@ -59,38 +43,39 @@ public class Pacman {
 		}
 		
 		this.moving = true;
+		
 		return true;
 	}
 	
-	public boolean moveDOWN() {
+	private BoardLocation getLocationDirectedTo() {
 		
-		this.currentDirection = Direction.DOWN; 
+		int rowDirectedTo = currentBoardLocation.getRow();
+		int columnDirectedTo = currentBoardLocation.getColumn();
 		
-		BoardLocation locationDirectedTo = currentBoardLocation.getBoard()[currentBoardLocation.getRow() + 1][currentBoardLocation.getColumn()];
+		switch(this.currentDirection) {
 		
-		if(locationDirectedTo.isWall()) {
-			this.moving = false;
-			return false;
+			case UP:
+				rowDirectedTo = currentBoardLocation.getRow() - 1;
+				columnDirectedTo = currentBoardLocation.getColumn();
+			break;
+			
+			case DOWN:
+				rowDirectedTo = currentBoardLocation.getRow() + 1;
+				columnDirectedTo = currentBoardLocation.getColumn();
+			break;				
+			
+			case LEFT:
+				rowDirectedTo = currentBoardLocation.getRow();
+				columnDirectedTo = currentBoardLocation.getColumn() -1;
+			break;
+			
+			case RIGHT:
+				rowDirectedTo = currentBoardLocation.getRow();
+				columnDirectedTo = currentBoardLocation.getColumn() + 1;
+			break;
 		}
 		
-		this.moving = true;
-		return true;
-	}
-	
-	public boolean moveRIGHT() {
-		
-		this.currentDirection = Direction.RIGHT;
-		
-		BoardLocation locationDirectedTo = currentBoardLocation.getBoard()[currentBoardLocation.getRow()][currentBoardLocation.getColumn() + 1];
-		
-		if(locationDirectedTo.isWall()) {
-			this.moving = false;
-			return false;
-		}
-		
-		this.moving = true;
-		
-		return true;
+		return currentBoardLocation.getBoard()[rowDirectedTo][columnDirectedTo];
 	}
 
 	public BoardLocation getCurrentBoardLocation() {

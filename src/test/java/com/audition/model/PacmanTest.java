@@ -33,82 +33,82 @@ public class PacmanTest {
 	}
 	
 	@Test
-	public void test_moveUP_should_direct_UP_AND_move() throws Exception {
+	public void test_move_should_move_UP_when_direction_UP_and_valid_destination() throws Exception {
 		
-		Pacman pacmanUnderTest = setUpMoveTest(Direction.DOWN, false);
+		Pacman pacmanUnderTest = setUpMoveTest(Direction.UP, false);
 		
-		pacmanUnderTest.moveUP();
+		pacmanUnderTest.move();
 		
 		assertEquals(Direction.UP, pacmanUnderTest.getCurrentDirection());
 		assertTrue(pacmanUnderTest.isMoving());
 	}
 	
 	@Test
-	public void test_moveLEFT_should_direct_LEFT_AND_move() throws Exception {
+	public void test_move_should_move_LEFT_when_direction_LEFT_and_valid_destination() throws Exception {
 		
-		Pacman pacmanUnderTest = setUpMoveTest(Direction.UP, false);
+		Pacman pacmanUnderTest = setUpMoveTest(Direction.LEFT, false);
 		
-		pacmanUnderTest.moveLEFT();
+		pacmanUnderTest.move();
 		
 		assertEquals(Direction.LEFT, pacmanUnderTest.getCurrentDirection());
 		assertTrue(pacmanUnderTest.isMoving());
 	}
 	
 	@Test
-	public void test_moveDOWN_should_direct_DOWN_AND_move() throws Exception {
+	public void test_move_should_move_down_when_direction_DOWN_and_valid_destination() throws Exception {
 		
-		Pacman pacmanUnderTest = setUpMoveTest(Direction.UP, false);
+		Pacman pacmanUnderTest = setUpMoveTest(Direction.DOWN, false);
 		
-		pacmanUnderTest.moveDOWN();
+		pacmanUnderTest.move();
 		
 		assertEquals(Direction.DOWN, pacmanUnderTest.getCurrentDirection());
 		assertTrue(pacmanUnderTest.isMoving());
 	}
 	
 	@Test
-	public void test_moveRIGHT_should_direct_RIGHT_AND_move() throws Exception {
+	public void test_move_should_move_RIGHT_when_direction_RIGHT_and_valid_destination() throws Exception {
 		
-		Pacman pacmanUnderTest = setUpMoveTest(Direction.UP, false);
+		Pacman pacmanUnderTest = setUpMoveTest(Direction.RIGHT, false);
 		
-		pacmanUnderTest.moveRIGHT();
+		pacmanUnderTest.move();
 		
 		assertEquals(Direction.RIGHT, pacmanUnderTest.getCurrentDirection());
 		assertTrue(pacmanUnderTest.isMoving());
 	}
 	
 	@Test
-	public void testMove_should_not_move_when_directionUP_and_destination_is_wall() throws Exception {
+	public void test_move_should_not_move_when_direction_UP_and_destination_is_wall() throws Exception {
 		
 		Pacman pacmanUnderTest = setUpMoveTest(Direction.UP, true);
 		
-		assertFalse(pacmanUnderTest.moveUP());
+		assertFalse(pacmanUnderTest.move());
 		assertFalse(pacmanUnderTest.isMoving());
 	}
 	
 	@Test
-	public void testMove_should_not_move_when_directionDown_and_destination_is_wall() throws Exception {
+	public void testMove_should_not_move_when_direction_DOWN_and_destination_is_wall() throws Exception {
 		
 		Pacman pacmanUnderTest = setUpMoveTest(Direction.DOWN, true);
 		
-		assertFalse(pacmanUnderTest.moveDOWN());
+		assertFalse(pacmanUnderTest.move());
 		assertFalse(pacmanUnderTest.isMoving());
 	}
 	
 	@Test
-	public void testMove_should_not_move_when_directionLEFT_and_destination_is_wall() throws Exception {
+	public void test_move_should_not_move_when_direction_LEFT_and_destination_is_wall() throws Exception {
 		
 		Pacman pacmanUnderTest = setUpMoveTest(Direction.LEFT, true);
 		
-		assertFalse(pacmanUnderTest.moveLEFT());
+		assertFalse(pacmanUnderTest.move());
 		assertFalse(pacmanUnderTest.isMoving());
 	}
 	
 	@Test
-	public void testMove_should_not_move_when_directionRight_and_destination_is_wall() throws Exception {
+	public void test_move_should_not_move_when_direction_RIGHT_and_destination_is_wall() throws Exception {
 		
 		Pacman pacmanUnderTest = setUpMoveTest(Direction.RIGHT, true);
 		
-		assertFalse(pacmanUnderTest.moveRIGHT());
+		assertFalse(pacmanUnderTest.move());
 		assertFalse(pacmanUnderTest.isMoving());
 	}
 	
